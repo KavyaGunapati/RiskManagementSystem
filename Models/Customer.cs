@@ -14,7 +14,8 @@ namespace RiskManagementSystem.Models
         public string Name { get; set; }
         [Range(18,int.MaxValue)]
         public int Age { get; set; }
-        public string? Email { get; set; } ;
+        [EmailAddress]
+        public string? Email { get; set; } 
         [Required]
         public string Region { get; set; }
         public List<Claim> Claims { get; set; }  = new List<Claim>();

@@ -12,6 +12,7 @@ namespace RiskManagementSystem.Data
     {
     public DbSet<RiskRule> RiskRules {  get; set; }
     public DbSet<Claim> Claims {  get; set; }
+        public DbSet<Customer> Customers { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=RiskManagementDb;Trusted_Connection=True;");
@@ -21,10 +22,13 @@ namespace RiskManagementSystem.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<RiskRule>()
                 .HasMany(r => r.Claims)
-                .WithMany(r => r.RiskRules);
+                .WithMany(r => r.RiskRules).
+                UsingEntity(t => t.ToTable("ClaimRiskRules"));
             modelBuilder.Entity<Claim>()
-                .HasOne()
-
+                .HasOne(c => c.Customer)
+                .WithMany(c => c.Claims)
+                .HasForeignKey(c=>c.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
