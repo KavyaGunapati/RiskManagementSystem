@@ -13,5 +13,6 @@ namespace RiskManagementSystem.Services
         Task<Customer?> GetCustomerByIdAsync(int customerId);
         Task<List<Customer>> GetAllCustomersAsync();
         Task<List<Customer>> GetTopCustomersByClaimAmountAsync(int topCount);
+        Task <Customer> UpdateCustomerAsync(Customer customer);
     }
 }

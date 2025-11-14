@@ -51,4 +51,11 @@ public class CustomerService : ICustomerService
             .Take(topCount)
             .ToListAsync();
     }
+
+    public async Task<Customer> UpdateCustomerAsync(Customer customer)
+    {
+        _context.Customers.Update(customer);
+        await _context.SaveChangesAsync();
+        return customer;
+    }
 }
